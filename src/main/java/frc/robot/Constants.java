@@ -139,4 +139,13 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
+
+  public static final class PneumaticsSubsystem {
+    //
+    public static final int leftSolenoidID = 0; //replace with acutual IDs later
+    public static final int RightSolenoidID = 0;
+    public static final int PnControllerID = 0; 
+
+    public static final int SolenoidChannel = 0;
+  } 
 }
