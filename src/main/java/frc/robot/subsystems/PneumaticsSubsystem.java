@@ -5,47 +5,57 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class PneumaticsSubsystem extends SubsystemBase {
-  /** Creates a new PneumaticsSubsystem. */
-  public PneumaticsSubsystem() {}
+    // Solenoids initialization
+    private Solenoid leftSolenoid = new Solenoid(
+            25,
+            PneumaticsModuleType.REVPH, // Recycled REVPH type from old code idk what it is lol
+            Constants.PneumaticsSubsystem.LeftSolenoidID);
+    private Solenoid RightSolenoid = new Solenoid(
+            25,
+            PneumaticsModuleType.REVPH,
+            Constants.PneumaticsSubsystem.RightSolenoidID);
 
-  //Solenoids initialization
-  private Solenoid leftSolenoid = new Solenoid(
-      Constants.PneumaticsSubsystem.leftSolenoidID, 
-      PneumaticsModuleType.REVPH, //Recycled REVPH type from old code idk what it is lol
-      Constants.PneumaticsSubsystem.SolenoidChannel
-  );
-  private Solenoid RightSolenoid = new Solenoid(
-      Constants.PneumaticsSubsystem.RightSolenoidID, 
-      PneumaticsModuleType.REVPH, 
-      Constants.PneumaticsSubsystem.SolenoidChannel
-  );
-  //Rev Pneumatic controller initialization
-  private PneumaticsControlModule PnController = new PneumaticsControlModule( 
-      Constants.PneumaticsSubsystem.PnControllerID
-  );
+    Compressor phCompressor = new Compressor(
+            25,
+            PneumaticsModuleType.REVPH);
 
-  //methods to open and close the claws
-  public static void Openclaws() {
-      leftSolenoid.set(true);
-      RightSolenoid.set(true);
-  }
+    // Rev Pneumatic controller initialization
+    // private PneumaticsControlModule PnController = new PneumaticsControlModule(
+    //         Constants.PneumaticsSubsystem.PnControllerID);
 
-  public static void CloseClaws() {
-      leftSolenoid.set(false);
-      RightSolenoid.set(false);
-  }
+    /** Creates a new PneumaticsSubsystem. */
+    public PneumaticsSubsystem() {
+        phCompressor.enableAnalog(110, 120);
+    }
 
-  @Override
-  public void periodic() {
-  // This method will be called once per scheduler run
-  }
+    // methods to open and close the claws
+    public void Openclaws() {
+        leftSolenoid.set(true);
+        RightSolenoid.set(true);
+    }
+
+    public void CloseClaws() {
+        leftSolenoid.set(false);
+        RightSolenoid.set(false);
+    }
+
+    public void ToggleClaws() {
+        leftSolenoid.toggle();
+        RightSolenoid.toggle();
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("PSI Value", phCompressor.getPressure());
+    }
 }
-
-
-
