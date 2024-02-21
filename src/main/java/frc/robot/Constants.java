@@ -139,4 +139,29 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
+
+  public static final class Intake {
+    public static final int IntakeWheelsId = 0;
+    public static final int TiltMotorId = 0;
+    public static final int TiltSensorId = 0;
+
+    public static final double TiltOffset = 0.0;
+
+    public static final class IntakeSpeeds {
+      public static double InSpeed = 0;
+      public static double OutSpeed = 0;
+    }
+
+    public static final class TiltPIDCutoffPositions {
+      public static final Double CutoffOut = 0.0;
+      public static final Double CutoffIn = 0.0;
+    }
+
+    public static final class TiltPositions {
+      public static final Double FULLY_IN = 0.0;
+      public static final Double FULLY_OUT = 0.0;
+      public static final Double TILT_UP = 0.0;
+    }
+
+  }
 }
