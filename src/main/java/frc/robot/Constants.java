@@ -169,4 +169,9 @@ public final class Constants {
     }
 
   }
+  public static final class PneumaticsSubsystem {
+    public static final int LeftSolenoidID = 1; //replace with acutual IDs later
+    public static final int RightSolenoidID = 2;
+    public static final int PnControllerID = 25; 
+  } 
 }
