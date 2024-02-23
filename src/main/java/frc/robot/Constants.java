@@ -148,13 +148,13 @@ public final class Constants {
     public static final double TiltOffset = 0.0;
 
     public static final class IntakeSpeeds {
-      public static double InSpeed = 0.3;
-      public static double OutSpeed = -0.3;
+      public static double InSpeed = 0.1;
+      public static double OutSpeed = -0.1;
     }
 
     public static final class TiltSpeeds {
-      public static double InSpeed = 0.3;
-      public static double OutSpeed = -0.3;
+      public static double InSpeed = -1;
+      public static double OutSpeed = 1;
     }
 
     public static final class TiltPIDCutoffPositions {

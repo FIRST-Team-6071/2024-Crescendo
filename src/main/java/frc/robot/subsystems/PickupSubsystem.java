@@ -102,8 +102,6 @@ public class PickupSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Wanted Intake Tilt Position", wantedTiltPosition);
     SmartDashboard.putBoolean("Intake Encoder Connected", tiltEncoder.isConnected());
 
-    System.out.println(tiltEncoder.get());
-
     // Calculate the PID Value
     double pidOutput = tiltPID.calculate(tiltEncoder.getAbsolutePosition(), wantedTiltPosition);
     SmartDashboard.putNumber("Tilt PID Output", pidOutput);
