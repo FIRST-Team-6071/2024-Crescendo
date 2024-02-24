@@ -174,4 +174,8 @@ public final class Constants {
     public static final int RightSolenoidID = 2;
     public static final int PnControllerID = 25; 
   } 
+
+  public static final class BlinkenSubsystem {
+    public static final int BlinkenPWMId = 0;
+  }
 }

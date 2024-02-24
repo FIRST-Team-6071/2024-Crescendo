@@ -18,6 +18,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.PneumaticsSubsystem;
+import frc.robot.subsystems.BlinkenSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,6 +36,7 @@ import java.util.List;
  */
 public class RobotContainer {
     // The robot's subsystems
+    private final BlinkenSubsystem m_BlinkenSubsystem = new BlinkenSubsystem();
     private final DriveSubsystem m_robotDrive = new DriveSubsystem();
     private final PickupSubsystem m_PickupSubsystem = new PickupSubsystem();
     private final PneumaticsSubsystem m_PneumaticsSubsystem = new PneumaticsSubsystem();
