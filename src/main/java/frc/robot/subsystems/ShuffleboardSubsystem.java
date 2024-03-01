@@ -15,6 +15,7 @@ public class ShuffleboardSubsystem extends SubsystemBase {
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
+  
   /** Creates a new ShuffleboardSubsystem. */
   public ShuffleboardSubsystem() {}
 

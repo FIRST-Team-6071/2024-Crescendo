@@ -28,6 +28,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 
+import com.pathplanner.lib.auto.NamedCommands;
+
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -48,6 +50,10 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+        NamedCommands.registerCommand("intakeOut", m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_OUT));
+        NamedCommands.registerCommand("intakeIn", m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_OUT));
+
+
         // Configure the button bindings
         configureButtonBindings();
 

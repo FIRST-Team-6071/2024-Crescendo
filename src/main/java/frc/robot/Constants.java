@@ -45,6 +45,15 @@ public final class Constants {
         new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
         new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
+      public static final Translation2d[] kModuleInfo = {
+          new Translation2d(kWheelBase / 2, kTrackWidth / 2),
+          new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
+          new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
+          new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)
+      };
+
+    public static final SwerveDriveKinematics KINEMATICS = new SwerveDriveKinematics(kModuleInfo);
+
     // Angular offsets of the modules relative to the chassis in radians
     public static final double kFrontLeftChassisAngularOffset = -Math.PI / 2;
     public static final double kFrontRightChassisAngularOffset = 0;
@@ -175,7 +184,7 @@ public final class Constants {
   }
 
   public static final class PneumaticsSubsystem {
-    public static final int LeftSolenoidID = 1; // replace with acutual IDs later
+    public static final int LeftSolenoidID = 1;
     public static final int RightSolenoidID = 2;
     public static final int PnControllerID = 25;
   }
