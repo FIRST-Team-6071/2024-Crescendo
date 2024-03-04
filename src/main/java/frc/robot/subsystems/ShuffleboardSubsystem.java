@@ -3,24 +3,29 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+]
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShuffleboardSubsystem extends SubsystemBase {
-  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-  NetworkTableEntry tx = table.getEntry("tx");
-  NetworkTableEntry ty = table.getEntry("ty");
-  NetworkTableEntry ta = table.getEntry("ta");
-  
+  SendableChooser<String> m_autoChooser = new SendableChooser<>();
+
   /** Creates a new ShuffleboardSubsystem. */
-  public ShuffleboardSubsystem() {}
+  public ShuffleboardSubsystem() {
+    m_autoChooser.addOption("Amp Side Auton", "amp_side");
+    m_autoChooser.addOption("Source Side Auton", "Source_side");
+    m_autoChooser.setDefaultOption("Center Auton", "center");
+    SmartDashboard.putData(m_autoChooser);
+
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public String GetSelectedAuton() {
+    return m_autoChooser.getSelected();
   }
 }
