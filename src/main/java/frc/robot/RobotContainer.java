@@ -5,18 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.ShootNote;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.BlinkenSubsystem;
@@ -24,11 +15,9 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import java.util.List;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -83,44 +72,29 @@ public class RobotContainer {
                         () -> m_robotDrive.setX(),
                         m_robotDrive));
 
-        m_driverController.a() 
-                .onTrue(m_ShooterSubsystem.RunMotors())
-                .onFalse(m_ShooterSubsystem.StopMotors());
+        m_driverController.start()
+                .onTrue(new RunCommand(() -> m_PneumaticsSubsystem.Openclaws(), m_PneumaticsSubsystem));
+        m_driverController.back()
+                .onTrue(new RunCommand(() -> m_PneumaticsSubsystem.CloseClaws(), m_PneumaticsSubsystem));
 
-        // m_auxController.button(5) 
-        //         .onTrue(m_ShooterSubsystem.RunMotors())
-        //         .onFalse(m_ShooterSubsystem.StopMotors());
 
-        // m_auxController.button(4) 
-        //         .onTrue(m_PickupSubsystem.TiltOut())
-        //         .onFalse(m_PickupSubsystem.TiltStop());
-
-        // m_auxController.button(3) 
-        //         .onTrue(m_PickupSubsystem.TiltIn())
-        //         .onFalse(m_PickupSubsystem.TiltStop());
-
-        m_auxController.button(5) 
-                .onTrue(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_IN));
-
-        m_auxController.button(4) 
-                .onTrue(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.TILT_UP));
-
-        m_auxController.button(3) 
+        // Controls for note intake
+        m_auxController.button(1) 
                 .onTrue(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_OUT));
-
 
         m_auxController.button(2) 
                 .onTrue(m_PickupSubsystem.PullInToIntake())
                 .onFalse(m_PickupSubsystem.StopIntake());
 
-        m_auxController.button(1) 
-                .onTrue(m_PickupSubsystem.PushOutOfIntake())
+        m_auxController.button(3) 
+                .onTrue(m_PickupSubsystem.PushOutOfIntakeLightly())
                 .onFalse(m_PickupSubsystem.StopIntake());
 
-        m_driverController.start()
-                .onTrue(new RunCommand(() -> m_PneumaticsSubsystem.Openclaws(), m_PneumaticsSubsystem));
-        m_driverController.back()
-                .onTrue(new RunCommand(() -> m_PneumaticsSubsystem.CloseClaws(), m_PneumaticsSubsystem));
+        // Controls for shooting
+        m_auxController.button(4) 
+                .onTrue(new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, true));
+        m_auxController.button(5) 
+                .onTrue(new ShootNote(m_ShooterSubsystem, m_PickupSubsystem));
     }
 
     /**

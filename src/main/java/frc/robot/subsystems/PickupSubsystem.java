@@ -67,6 +67,14 @@ public class PickupSubsystem extends SubsystemBase {
     );
   }
 
+  public Command PushOutOfIntakeLightly() {
+    return runOnce(
+      () -> {
+        m_IntakeWheels.set(Constants.Intake.IntakeSpeeds.OutSpeed / 2);
+      }
+    );
+  }
+
   // Runs the tilt motor out.
   public Command TiltOut() {
     return runOnce(

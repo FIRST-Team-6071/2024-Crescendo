@@ -181,7 +181,7 @@ public final class Constants {
   }
 
   public static final class BlinkenSubsystem {
-    public static final int BlinkenPWMId = 0;
+    public static final int BlinkenPWMId = 9;
   }
 
   public static final class ShooterConstants {
