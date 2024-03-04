@@ -149,27 +149,27 @@ public final class Constants {
     public static final int TiltMotorId = 9;
     public static final int TiltSensorId = 5;
 
-    public static final double TiltOffset = 0.0;
+    public static final double TiltOffset = 0.784;
 
     public static final class IntakeSpeeds {
-      public static double InSpeed = 0.1;
-      public static double OutSpeed = -0.1;
+      public static double InSpeed = 0.4;
+      public static double OutSpeed = -1;
     }
 
     public static final class TiltSpeeds {
-      public static double InSpeed = -1;
-      public static double OutSpeed = 1;
+      public static double InSpeed = -0.3;
+      public static double OutSpeed = 0.3;
     }
 
     public static final class TiltPIDCutoffPositions {
-      public static final Double CutoffOut = 0.0;
-      public static final Double CutoffIn = 0.0;
+      public static final Double CutoffOut = 0.670;
+      public static final Double CutoffIn = 0.1000;
     }
 
     public static final class TiltPositions {
-      public static final Double FULLY_IN = 0.0;
-      public static final Double FULLY_OUT = 0.0;
-      public static final Double TILT_UP = 0.0;
+      public static final Double FULLY_IN = 0.110;
+      public static final Double FULLY_OUT = 0.662;
+      public static final Double TILT_UP = 0.318;
     }
 
   }
@@ -187,6 +187,6 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final int RightShooterMotor = 19;
     public static final int LeftShooterMotor = 18;
-    public static final double ShooterSpeed = 0.3;
+    public static final double ShooterSpeed = 1;
   }
 }

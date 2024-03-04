@@ -7,35 +7,43 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
-   //Initialize motors
+  // Initialize motors
   private final VictorSPX ShooterRightMotor = new VictorSPX(Constants.ShooterConstants.RightShooterMotor);
   private final VictorSPX ShooterLeftMotor = new VictorSPX(Constants.ShooterConstants.LeftShooterMotor);
 
   private boolean ShouldRunMotors = false;
-  
+
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
-    ShooterLeftMotor.setInverted(true); 
+    ShooterLeftMotor.setInverted(false);
+    ShooterRightMotor.setInverted(true);
   }
 
-  public void RunMotors() {
-    ShouldRunMotors = true;
+  public Command RunMotors() {
+    return runOnce(
+      () -> {
+        ShooterRightMotor.set(VictorSPXControlMode.PercentOutput, Constants.ShooterConstants.ShooterSpeed);
+        ShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, Constants.ShooterConstants.ShooterSpeed);
+      }
+    );
   }
-    public void StopMotors() {
-    ShouldRunMotors = false;
+
+  public Command StopMotors() {
+    return runOnce(
+      () -> {
+        ShooterRightMotor.set(VictorSPXControlMode.PercentOutput, 0);
+        ShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, 0);
+      }
+    );
   }
+
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    if (ShouldRunMotors) {
-      ShooterRightMotor.set(VictorSPXControlMode.PercentOutput, Constants.ShooterConstants.ShooterSpeed); //I have no idea what 15 does here
-      ShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, Constants.ShooterConstants.ShooterSpeed); //I have no idea what 15 does here
-      
-    }
   }
 }

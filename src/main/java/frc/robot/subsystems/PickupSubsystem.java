@@ -24,11 +24,11 @@ public class PickupSubsystem extends SubsystemBase {
 
   DutyCycleEncoder tiltEncoder = new DutyCycleEncoder(Constants.Intake.TiltSensorId);
 
-  PIDController tiltPID = new PIDController(10,5,0);
+  PIDController tiltPID = new PIDController(8, 0.0001 ,0);
 
   /** Creates a new PickupSubsystem. */
   public PickupSubsystem() {
-    // tiltEncoder.setPositionOffset(Constants.Intake.TiltOffset);
+    tiltEncoder.setPositionOffset(Constants.Intake.TiltOffset);
   }
 
   // Sets the new wanted tilt position.
@@ -104,21 +104,38 @@ public class PickupSubsystem extends SubsystemBase {
 
     // Calculate the PID Value
     double pidOutput = tiltPID.calculate(tiltEncoder.getAbsolutePosition(), wantedTiltPosition);
+      SmartDashboard.putNumber("Tilt PID Output Changed", MathUtil.clamp(pidOutput, -0.5, 0.5));
     SmartDashboard.putNumber("Tilt PID Output", pidOutput);
 
     // Check to see of we are moving the tilt in, if so, ignore the lower deadzone.
-    // if (
-    //   pidOutput > 0 &&
-    //   !(tiltEncoder.getAbsolutePosition() > Constants.Intake.TiltPIDCutoffPositions.CutoffIn)
-    // ) {
-    //   m_Tilt.set(MathUtil.clamp(pidOutput, -0.2, 0.2));
-    // }
+    if (
+      MathUtil.clamp(pidOutput, -0.5, 0.5) < -0.3 &&
+      !(tiltEncoder.getAbsolutePosition() < Constants.Intake.TiltPIDCutoffPositions.CutoffIn)
+    ) {
+      System.out.println("Move In");
+      m_Tilt.set(MathUtil.clamp(pidOutput, -0.5, 0.5));
+    }
 
-    // if (
-    //   pidOutput < 0 &&
-    //   !(tiltEncoder.getAbsolutePosition() < Constants.Intake.TiltPIDCutoffPositions.CutoffIn)
-    // ) {
-    //   m_Tilt.set(MathUtil.clamp(pidOutput, -0.2, 0.2));
-    // }
+    if (
+      MathUtil.clamp(pidOutput, -0.5, 0.5) > 0.3 &&
+      !(tiltEncoder.getAbsolutePosition() > Constants.Intake.TiltPIDCutoffPositions.CutoffOut)
+    ) {
+      System.out.println("Move Out");
+      m_Tilt.set(MathUtil.clamp(pidOutput, -0.5, 0.5));
+    }
+
+    if ( 
+      !(
+        MathUtil.clamp(pidOutput, -0.5, 0.5) < -0.3 &&
+        !(tiltEncoder.getAbsolutePosition() < Constants.Intake.TiltPIDCutoffPositions.CutoffIn)
+        ) &&
+      !(
+        MathUtil.clamp(pidOutput, -0.5, 0.5) > 0.3 &&
+        !(tiltEncoder.getAbsolutePosition() > Constants.Intake.TiltPIDCutoffPositions.CutoffOut)
+      )
+    ) {
+      System.out.println("No Move");
+            m_Tilt.set(0);
+    }
   }
 }
