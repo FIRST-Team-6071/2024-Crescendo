@@ -26,6 +26,8 @@ public class PickupSubsystem extends SubsystemBase {
 
   PIDController tiltPID = new PIDController(8, 0.0001 ,0);
 
+  boolean isAtPosition = false;
+  
   /** Creates a new PickupSubsystem. */
   public PickupSubsystem() {
     tiltEncoder.setPositionOffset(Constants.Intake.TiltOffset);
@@ -35,9 +37,15 @@ public class PickupSubsystem extends SubsystemBase {
   public Command SetTilt(double newTiltPos) {
     return runOnce(
       () -> {
+        isAtPosition = false;
         wantedTiltPosition = newTiltPos;
       }
     );
+  }
+
+  public void SetTiltRaw(double newTiltPos) {
+    isAtPosition = false;
+    wantedTiltPosition = newTiltPos;
   }
 
   // Runs the intake to pull in a note.
@@ -60,17 +68,15 @@ public class PickupSubsystem extends SubsystemBase {
 
   // Runs the intake to push out a note.
   public Command PushOutOfIntake() {
-    return runOnce(
-      () -> {
-        m_IntakeWheels.set(Constants.Intake.IntakeSpeeds.OutSpeed);
-      }
-    );
+    return runOnce(() -> {
+      m_IntakeWheels.set(Constants.Intake.IntakeSpeeds.OutSpeed);
+    });
   }
 
   public Command PushOutOfIntakeLightly() {
     return runOnce(
       () -> {
-        m_IntakeWheels.set(Constants.Intake.IntakeSpeeds.OutSpeed / 2);
+        m_IntakeWheels.set(Constants.Intake.IntakeSpeeds.OutSpeed / 3);
       }
     );
   }
@@ -103,6 +109,15 @@ public class PickupSubsystem extends SubsystemBase {
     );
   }
 
+  public boolean IsAtPosition() {
+    return isAtPosition;
+  }
+
+  public boolean InWithinRange() {
+    return wantedTiltPosition >= tiltEncoder.get() + (wantedTiltPosition + .01) 
+      || wantedTiltPosition <= tiltEncoder.get() + (wantedTiltPosition - .01);
+  }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Actual Intake Tilt Position", tiltEncoder.getAbsolutePosition());
@@ -120,7 +135,8 @@ public class PickupSubsystem extends SubsystemBase {
       MathUtil.clamp(pidOutput, -0.5, 0.5) < -0.3 &&
       !(tiltEncoder.getAbsolutePosition() < Constants.Intake.TiltPIDCutoffPositions.CutoffIn)
     ) {
-      System.out.println("Move In");
+      SmartDashboard.putString("Tilt Movement Position", "Move In");
+      isAtPosition = false;
       m_Tilt.set(MathUtil.clamp(pidOutput, -0.5, 0.5));
     }
 
@@ -128,7 +144,8 @@ public class PickupSubsystem extends SubsystemBase {
       MathUtil.clamp(pidOutput, -0.5, 0.5) > 0.3 &&
       !(tiltEncoder.getAbsolutePosition() > Constants.Intake.TiltPIDCutoffPositions.CutoffOut)
     ) {
-      System.out.println("Move Out");
+      SmartDashboard.putString("Tilt Movement Position", "Move Out");
+      isAtPosition = false;
       m_Tilt.set(MathUtil.clamp(pidOutput, -0.5, 0.5));
     }
 
@@ -142,8 +159,9 @@ public class PickupSubsystem extends SubsystemBase {
         !(tiltEncoder.getAbsolutePosition() > Constants.Intake.TiltPIDCutoffPositions.CutoffOut)
       )
     ) {
-      System.out.println("No Move");
-            m_Tilt.set(0);
+      SmartDashboard.putString("Tilt Movement Position", "Don't Move");
+      isAtPosition = true;
+      m_Tilt.set(0);
     }
   }
 }

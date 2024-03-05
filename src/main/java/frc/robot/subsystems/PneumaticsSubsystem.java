@@ -33,6 +33,7 @@ public class PneumaticsSubsystem extends SubsystemBase {
     /** Creates a new PneumaticsSubsystem. */
     public PneumaticsSubsystem() {
         phCompressor.enableAnalog(110, 120);
+        phCompressor.disable();
     }
 
     // methods to open and close the claws

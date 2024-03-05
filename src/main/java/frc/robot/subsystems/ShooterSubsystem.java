@@ -24,13 +24,9 @@ public class ShooterSubsystem extends SubsystemBase {
     ShooterRightMotor.setInverted(true);
   }
 
-  public Command RunMotors() {
-    return runOnce(
-      () -> {
-        ShooterRightMotor.set(VictorSPXControlMode.PercentOutput, Constants.ShooterConstants.ShooterSpeed);
-        ShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, Constants.ShooterConstants.ShooterSpeed);
-      }
-    );
+  public void RunMotors() {
+    ShooterRightMotor.set(VictorSPXControlMode.PercentOutput, Constants.ShooterConstants.ShooterSpeed);
+    ShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, Constants.ShooterConstants.ShooterSpeed);
   }
 
   public Command StopMotors() {

@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.PickupSubsystem;
@@ -14,10 +13,8 @@ public class ShootNote extends Command {
   private ShooterSubsystem m_shooter;
   private PickupSubsystem m_PickupSubsystem;
 
-  private double timeToLetIntakeMove = .75; // Time In Seconds
-  private double timeToLetShoot = .5; // Time In Seconds
   private boolean hasFinished = false;
-  private boolean isAmp = false();
+  private boolean isAmp = false;
 
   /** Creates a new ShootNote. */
   public ShootNote(ShooterSubsystem p_ShooterSubsystem, PickupSubsystem p_PickupSubsystem) {
@@ -43,25 +40,21 @@ public class ShootNote extends Command {
   @Override
   public void initialize() {
     m_shooter.RunMotors();
-    m_PickupSubsystem.SetTilt(isAmp ? Constants.Intake.TiltPositions.TILT_UP : Constants.Intake.TiltPositions.FULLY_IN);
+    m_PickupSubsystem.SetTiltRaw(isAmp ? Constants.Intake.TiltPositions.TILT_UP : Constants.Intake.TiltPositions.FULLY_IN);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Timer.delay(timeToLetIntakeMove);
-    m_PickupSubsystem.PushOutOfIntake();
-    Timer.delay(timeToLetShoot);
-    hasFinished = true;
+    if (m_PickupSubsystem.InWithinRange()) {
+      System.out.println("At Pos");
+      hasFinished = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_PickupSubsystem.StopIntake();
-    m_shooter.StopMotors();
-
-    m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_IN);
   }
 
   // Returns true when the command should end.
