@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ShootNote;
+import frc.robot.commands.Intake.TiltToPosition;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ShuffleboardSubsystem;
@@ -47,9 +48,11 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        NamedCommands.registerCommand("intakeOut", m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_OUT));
-        NamedCommands.registerCommand("intakeIn", m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_OUT));
-
+        NamedCommands.registerCommand("intakeTiltOut", new TiltToPosition(m_PickupSubsystem, Constants.Intake.TiltPositions.FULLY_OUT));
+        NamedCommands.registerCommand("intakeTiltIn", new TiltToPosition(m_PickupSubsystem, Constants.Intake.TiltPositions.FULLY_IN));
+        NamedCommands.registerCommand("intakeNoteIn", m_PickupSubsystem.PullInToIntake());
+        NamedCommands.registerCommand("intakeNoteOut", m_PickupSubsystem.PushOutOfIntake());        
+        NamedCommands.registerCommand("intakeNoteStop", m_PickupSubsystem.StopIntake());
 
         // Configure the button bindings
         configureButtonBindings();

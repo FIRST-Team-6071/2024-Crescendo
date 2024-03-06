@@ -2,19 +2,145 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3337957445145674,
-      "y": 7.202868251890351
+      "x": 1.3929974013794195,
+      "y": 5.535354916863679
     },
-    "rotation": 0
+    "rotation": 178.9769698113322
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltOut"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Center Path"
+            "pathName": "PickupCenterNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToSpeakerCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteOut"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltOut"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PickupSourceNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GoToSpeakerCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteOut"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteStop"
           }
         }
       ]
