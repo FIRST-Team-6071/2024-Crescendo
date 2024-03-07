@@ -39,7 +39,9 @@ public class ShootNote extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.RunMotors();
+    if (!isAmp) {
+      m_shooter.RunMotors();
+    }
     m_PickupSubsystem.SetTiltRaw(isAmp ? Constants.Intake.TiltPositions.TILT_UP : Constants.Intake.TiltPositions.FULLY_IN);
   }
 

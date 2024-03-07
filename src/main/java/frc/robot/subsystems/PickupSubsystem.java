@@ -43,6 +43,16 @@ public class PickupSubsystem extends SubsystemBase {
     );
   }
 
+  public Command AlternateTilt() {
+    return runOnce(() -> {
+      if (wantedTiltPosition == Constants.Intake.TiltPositions.FULLY_IN) {
+        wantedTiltPosition = Constants.Intake.TiltPositions.FULLY_OUT;
+      } else {
+        wantedTiltPosition = Constants.Intake.TiltPositions.FULLY_IN;
+      }
+    });
+  }
+
   public void SetTiltRaw(double newTiltPos) {
     isAtPosition = false;
     wantedTiltPosition = newTiltPos;
@@ -114,8 +124,8 @@ public class PickupSubsystem extends SubsystemBase {
   }
 
   public boolean InWithinRange() {
-    return wantedTiltPosition >= tiltEncoder.get() + (wantedTiltPosition + .01) 
-      || wantedTiltPosition <= tiltEncoder.get() + (wantedTiltPosition - .01);
+    return wantedTiltPosition <= tiltEncoder.get() + (wantedTiltPosition + .01) 
+      || wantedTiltPosition >= tiltEncoder.get() + (wantedTiltPosition - .01);
   }
 
   @Override

@@ -89,6 +89,7 @@ public class RobotContainer {
         m_driverController.a().onTrue(new RunCommand(() -> m_ShooterSubsystem.RunMotors(), m_ShooterSubsystem)).onFalse(m_ShooterSubsystem.StopMotors());
         m_driverController.y().onTrue(m_PickupSubsystem.PushOutOfIntake()). onFalse(m_PickupSubsystem.StopIntake());
         m_driverController.b().onTrue(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.TILT_UP));
+        
         m_driverController.start()
                 .onTrue(new RunCommand(() -> m_PneumaticsSubsystem.Openclaws(), m_PneumaticsSubsystem));
         m_driverController.back()
@@ -97,7 +98,7 @@ public class RobotContainer {
 
         // Controls for note intake
         m_auxController.button(1) 
-                .onTrue(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_OUT));
+                .onTrue(m_PickupSubsystem.AlternateTilt());
 
         m_auxController.button(2) 
                 .onTrue(m_PickupSubsystem.PullInToIntake())
@@ -111,16 +112,29 @@ public class RobotContainer {
         m_auxController.button(4) 
                 .onTrue(
                         new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, true)
-                        .andThen(new WaitCommand(0.5)
-                        .andThen(m_ShooterSubsystem.StopMotors())                    
-                        .andThen(m_PickupSubsystem.StopIntake()))
-                        // .andThen(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_IN)))
+                        .andThen(
+                                new WaitCommand(.5)
+                                .andThen(
+                                        m_PickupSubsystem.PushOutOfIntake()
+                                        .andThen(
+                                                new WaitCommand(0.5)
+                                                .andThen(
+                                                        m_ShooterSubsystem.StopMotors()
+                                                        .andThen(
+                                                                m_PickupSubsystem.StopIntake()
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
                 );
+
+
         m_auxController.button(5) 
                 .onTrue(
                         new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, false)
                         .andThen(
-                                new WaitCommand(1)
+                                new WaitCommand(1.2)
                                 .andThen(
                                         m_PickupSubsystem.PushOutOfIntake()
                                         .andThen(
