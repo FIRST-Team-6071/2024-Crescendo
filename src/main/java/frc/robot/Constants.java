@@ -172,11 +172,11 @@ public final class Constants {
 
     public static final class TiltPIDCutoffPositions {
       public static final Double CutoffOut = 0.670;
-      public static final Double CutoffIn = 0.1000;
+      public static final Double CutoffIn = 0.1400;
     }
 
     public static final class TiltPositions {
-      public static final Double FULLY_IN = 0.110;
+      public static final Double FULLY_IN = 0.150;
       public static final Double FULLY_OUT = 0.662;
       public static final Double TILT_UP = 0.318;
     }

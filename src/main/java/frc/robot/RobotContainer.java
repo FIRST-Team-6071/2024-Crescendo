@@ -87,6 +87,7 @@ public class RobotContainer {
 
 
         m_driverController.a().onTrue(new RunCommand(() -> m_ShooterSubsystem.RunMotors(), m_ShooterSubsystem)).onFalse(m_ShooterSubsystem.StopMotors());
+        m_driverController.y().onTrue(m_PickupSubsystem.PushOutOfIntake()). onFalse(m_PickupSubsystem.StopIntake());
         m_driverController.b().onTrue(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.TILT_UP));
         m_driverController.start()
                 .onTrue(new RunCommand(() -> m_PneumaticsSubsystem.Openclaws(), m_PneumaticsSubsystem));
