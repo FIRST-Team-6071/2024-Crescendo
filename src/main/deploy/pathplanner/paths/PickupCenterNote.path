@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.34,
-        "y": 5.535354916863679
+        "x": 1.3337957445145674,
+        "y": 5.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3103991715675742,
-        "y": 5.535354916863679
+        "x": 1.3041949160821416,
+        "y": 5.54
       },
       "isLocked": false,
       "linkedName": "CenterSpeaker"

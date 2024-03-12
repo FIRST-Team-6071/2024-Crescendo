@@ -83,10 +83,16 @@ public class PickupSubsystem extends SubsystemBase {
     });
   }
 
+  public Command PushOutOfIntakeAmp() {
+    return runOnce(() -> {
+      m_IntakeWheels.set(Constants.Intake.IntakeSpeeds.OutSpeed * .9);
+    });
+  }
+
   public Command PushOutOfIntakeLightly() {
     return runOnce(
       () -> {
-        m_IntakeWheels.set(Constants.Intake.IntakeSpeeds.OutSpeed / 3);
+        m_IntakeWheels.set(Constants.Intake.IntakeSpeeds.OutSpeed / 2);
       }
     );
   }

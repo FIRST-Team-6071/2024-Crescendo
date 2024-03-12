@@ -4,9 +4,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.AlignToTarget;
 import frc.robot.commands.ShootNote;
 import frc.robot.commands.Intake.TiltToPosition;
 import frc.robot.subsystems.PneumaticsSubsystem;
@@ -40,6 +43,10 @@ public class RobotContainer {
     private final PneumaticsSubsystem m_PneumaticsSubsystem = new PneumaticsSubsystem();
     private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
 
+    private UsbCamera camera = CameraServer.startAutomaticCapture();
+    private UsbCamera cameraChain = CameraServer.startAutomaticCapture();
+
+
     // The driver's controller
     CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort); 
     CommandJoystick m_auxController = new CommandJoystick(1);
@@ -53,6 +60,22 @@ public class RobotContainer {
         NamedCommands.registerCommand("intakeNoteIn", m_PickupSubsystem.PullInToIntake());
         NamedCommands.registerCommand("intakeNoteOut", m_PickupSubsystem.PushOutOfIntake());        
         NamedCommands.registerCommand("intakeNoteStop", m_PickupSubsystem.StopIntake());
+        NamedCommands.registerCommand("shootNote", new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, false)
+                        .andThen(
+                                new WaitCommand(1.2)
+                                .andThen(
+                                        m_PickupSubsystem.PushOutOfIntake()
+                                        .andThen(
+                                                new WaitCommand(0.8)
+                                                .andThen(
+                                                        m_ShooterSubsystem.StopMotors()
+                                                        .andThen(
+                                                                m_PickupSubsystem.StopIntake()
+                                                        )
+                                                )
+                                        )
+                                )
+                        ));
 
         // Configure the button bindings
         configureButtonBindings();
@@ -63,10 +86,10 @@ public class RobotContainer {
                 // Turning is controlled by the X axis of the right stick.
                 new RunCommand(
                         () -> m_robotDrive.drive(
-                                -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
-                                -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+                                MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+                                MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
                                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
-                                false, true),
+                                true, true),
                         m_robotDrive));
     }
 
@@ -80,16 +103,17 @@ public class RobotContainer {
      * {@link JoystickButton}.
      */
     private void configureButtonBindings() {
-        m_driverController.rightBumper()
+        m_driverController.x()
                 .whileTrue(new RunCommand(
                         () -> m_robotDrive.setX(),
                         m_robotDrive));
 
 
-        m_driverController.a().onTrue(new RunCommand(() -> m_ShooterSubsystem.RunMotors(), m_ShooterSubsystem)).onFalse(m_ShooterSubsystem.StopMotors());
-        m_driverController.y().onTrue(m_PickupSubsystem.PushOutOfIntake()). onFalse(m_PickupSubsystem.StopIntake());
-        m_driverController.b().onTrue(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.TILT_UP));
-        
+        m_driverController.b().whileTrue(new AlignToTarget(m_robotDrive, m_ShuffleboardSubsystem));
+        // m_driverController.a().onTrue(new RunCommand(() -> m_ShooterSubsystem.RunMotors(), m_ShooterSubsystem)).onFalse(m_ShooterSubsystem.StopMotors());
+        // m_driverController.y().onTrue(m_PickupSubsystem.PushOutOfIntake()). onFalse(m_PickupSubsystem.StopIntake());
+        // m_driverController.b().onTrue(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.TILT_UP));
+
         m_driverController.start()
                 .onTrue(new RunCommand(() -> m_PneumaticsSubsystem.Openclaws(), m_PneumaticsSubsystem));
         m_driverController.back()
@@ -108,29 +132,34 @@ public class RobotContainer {
                 .onTrue(m_PickupSubsystem.PushOutOfIntakeLightly())
                 .onFalse(m_PickupSubsystem.StopIntake());
 
-        // Controls for shooting
-        m_auxController.button(4) 
-                .onTrue(
-                        new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, true)
-                        .andThen(
-                                new WaitCommand(.5)
-                                .andThen(
-                                        m_PickupSubsystem.PushOutOfIntake()
-                                        .andThen(
-                                                new WaitCommand(0.5)
-                                                .andThen(
-                                                        m_ShooterSubsystem.StopMotors()
-                                                        .andThen(
-                                                                m_PickupSubsystem.StopIntake()
-                                                        )
-                                                )
-                                        )
-                                )
-                        )
-                );
+        // // Controls for shooting
+        // m_auxController.button(4) 
+        //         .onTrue(
+        //                 new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, true)
+        //                 .andThen(
+        //                         new WaitCommand(.9)
+        //                         .andThen(
+        //                                 m_PickupSubsystem.PushOutOfIntakeAmp()
+        //                                 .andThen(
+        //                                         new WaitCommand(0.9)
+        //                                         .andThen(
+        //                                                 m_ShooterSubsystem.StopMotors()
+        //                                                 .andThen(
+        //                                                         m_PickupSubsystem.StopIntake()
+        //                                                         .andThen(
+        //                                                                 m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.FULLY_IN)
+        //                                                         )
+        //                                                 )
+        //                                         )
+        //                                 )
+        //                         )
+        //                 )
+        //         );
 
 
         m_auxController.button(5) 
+
+
                 .onTrue(
                         new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, false)
                         .andThen(
@@ -138,7 +167,7 @@ public class RobotContainer {
                                 .andThen(
                                         m_PickupSubsystem.PushOutOfIntake()
                                         .andThen(
-                                                new WaitCommand(0.5)
+                                                new WaitCommand(0.8)
                                                 .andThen(
                                                         m_ShooterSubsystem.StopMotors()
                                                         .andThen(

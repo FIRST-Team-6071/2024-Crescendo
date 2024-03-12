@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3929974013794195,
-      "y": 5.535354916863679
+      "x": 1.3337957445145674,
+      "y": 5.54
     },
     "rotation": 178.9769698113322
   },
@@ -11,6 +11,18 @@
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -62,19 +74,13 @@
         {
           "type": "named",
           "data": {
-            "name": "intakeNoteOut"
+            "name": "shootNote"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeNoteStop"
+            "waitTime": 1.0
           }
         },
         {
@@ -98,7 +104,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "PickupSourceNote"
+            "pathName": "PickupAmpNote"
           }
         },
         {
@@ -128,19 +134,13 @@
         {
           "type": "named",
           "data": {
-            "name": "intakeNoteOut"
+            "name": "shootNote"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeNoteStop"
+            "waitTime": 1.0
           }
         }
       ]
