@@ -163,11 +163,11 @@ public class RobotContainer {
                 .onTrue(
                         new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, false)
                         .andThen(
-                                new WaitCommand(1.2)
+                                new WaitCommand(.2)
                                 .andThen(
                                         m_PickupSubsystem.PushOutOfIntake()
                                         .andThen(
-                                                new WaitCommand(0.8)
+                                                new WaitCommand(0.2)
                                                 .andThen(
                                                         m_ShooterSubsystem.StopMotors()
                                                         .andThen(
