@@ -32,19 +32,19 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeNoteIn"
+            "waitTime": 0.3
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "PickupCenterNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
           }
         },
         {
@@ -128,7 +128,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GoToSpeakerCenter"
+            "pathName": "Goback Center Ampnote"
           }
         },
         {
@@ -141,6 +141,66 @@
           "type": "wait",
           "data": {
             "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltOut"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pickup Center Sourcenote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Goback Center Sourcenote"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
           }
         }
       ]

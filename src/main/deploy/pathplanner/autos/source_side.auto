@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8207147183525153,
-      "y": 4.4499912076747234
+      "x": 0.7812469471092803,
+      "y": 4.43
     },
     "rotation": 118.810793742973
   },
@@ -20,7 +20,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
@@ -60,15 +60,15 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 0.5
+            "pathName": "GobackMiddleSourceNote"
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "GoToSpeakerSource"
+            "waitTime": 0.5
           }
         },
         {
@@ -80,7 +80,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PickupMiddleCenterSourceNote"
           }
         },
         {
@@ -92,19 +98,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
           "type": "named",
           "data": {
             "name": "intakeNoteIn"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "PickupMiddleCenterSourceNote"
           }
         },
         {
@@ -128,7 +128,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GoToSpeakerSource"
+            "pathName": "GobackMiddleCenterSource"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltIn"
           }
         },
         {

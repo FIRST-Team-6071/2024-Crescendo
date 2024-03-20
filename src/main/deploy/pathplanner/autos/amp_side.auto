@@ -2,15 +2,160 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 2
+      "x": 0.7365015087811937,
+      "y": 6.784785233255618
     },
-    "rotation": 0
+    "rotation": -119.57783868126141
   },
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Ampside Pathstart"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "shoot amp side"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Ampside secondPath"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ampside secondPath shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ampside finalPath"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Ampside finalPath shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ampside FinalFinalPath"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Ampside FinalFinalPath Shoot"
+          }
+        }
+      ]
     }
   },
   "folder": null,
