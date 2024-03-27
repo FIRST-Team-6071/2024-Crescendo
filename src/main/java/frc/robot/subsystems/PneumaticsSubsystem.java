@@ -23,7 +23,7 @@ public class PneumaticsSubsystem extends SubsystemBase {
             PneumaticsModuleType.REVPH,
             Constants.PneumaticsSubsystem.RightSolenoidID);
 
-    private boolean hasExtended = false;
+    private boolean isCompressing = false;
 
     Compressor phCompressor = new Compressor(
             25,
@@ -35,8 +35,27 @@ public class PneumaticsSubsystem extends SubsystemBase {
 
     /** Creates a new PneumaticsSubsystem. */
     public PneumaticsSubsystem() {
-        phCompressor.enableAnalog(110, 120);
-        phCompressor.disable();
+        // phCompressor.enableAnalog(110, 120);
+    }
+
+    public void ToggleCompressor() {
+        if (isCompressing) {
+            isCompressing = false;
+            phCompressor.disable();
+        } else {
+            isCompressing = true;
+            phCompressor.enableAnalog(119, 120);
+        }
+    }
+
+    public void SetCompressor(boolean isEnabled) {
+        if (isEnabled) {
+            isCompressing = true;
+            phCompressor.enableAnalog(119, 120);
+        } else {
+            isCompressing = false;
+            phCompressor.disable();
+        }
     }
 
     // methods to open and close the claws
@@ -60,6 +79,8 @@ public class PneumaticsSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("PSI Value", phCompressor.getPressure());
 
         SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
+
+        SmartDashboard.putBoolean("Is Compressor", isCompressing);
 
         // if (DriverStation.isTeleop() && DriverStation.getMatchTime() < 60 && !hasExtended) {
         //     hasExtended = true;

@@ -20,7 +20,19 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeTiltOut"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
           }
         },
         {
@@ -32,13 +44,7 @@
         {
           "type": "named",
           "data": {
-            "name": "intakeNoteIn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
+            "name": "intakeNoteStop"
           }
         },
         {
@@ -54,15 +60,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Ampside secondPath"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "intakeNoteIn"
+            "name": "shootNote"
           }
         },
         {
@@ -72,87 +72,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "intakeNoteStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeTiltIn"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "ampside secondPath shoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shootNote"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "ampside finalPath"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeNoteIn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeNoteStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeTiltIn"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Ampside finalPath shoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shootNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "ampside FinalFinalPath"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Ampside FinalFinalPath Shoot"
+            "pathName": "1_note_source_side"
           }
         }
       ]

@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3337957445145674,
-      "y": 5.54
+      "x": 1.419540867250749,
+      "y": 5.549946874541637
     },
     "rotation": 178.9769698113322
   },
@@ -18,33 +18,27 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "intakeTiltOut"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "intakeNoteIn"
+          }
+        },
+        {
           "type": "wait",
           "data": {
-            "waitTime": 0.3
+            "waitTime": 1.0
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "PickupCenterNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intakeNoteIn"
           }
         },
         {
@@ -62,7 +56,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.3
           }
         },
         {
@@ -80,7 +74,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
@@ -90,21 +84,27 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "intakeNoteIn"
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "PickupAmpNote"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
           }
         },
         {
@@ -117,12 +117,6 @@
           "type": "named",
           "data": {
             "name": "intakeTiltIn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         },
         {
@@ -140,25 +134,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
           "type": "named",
           "data": {
             "name": "intakeTiltOut"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Pickup Center Sourcenote"
           }
         },
         {
@@ -170,7 +152,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pickup Center Sourcenote"
           }
         },
         {
@@ -192,15 +180,15 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "shootNote"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         }
       ]

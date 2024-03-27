@@ -24,7 +24,7 @@ public class PickupSubsystem extends SubsystemBase {
 
   DutyCycleEncoder tiltEncoder = new DutyCycleEncoder(Constants.Intake.TiltSensorId);
 
-  PIDController tiltPID = new PIDController(8, 0.0001 ,0);
+  PIDController tiltPID = new PIDController(9, 0.0001 ,0);
 
   boolean isAtPosition = false;
   

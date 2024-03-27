@@ -13,14 +13,19 @@ public class ShuffleboardSubsystem extends SubsystemBase {
   /** Creates a new ShuffleboardSubsystem. */
   public ShuffleboardSubsystem() {
     m_autoChooser.addOption("Amp Side Auton", "amp_side");
-    m_autoChooser.addOption("Source Side Auton", "Source_side");
-    m_autoChooser.setDefaultOption("Center Auton", "center"); 
-    
+    m_autoChooser.addOption("1 Note Amp Side Auton", "1_note_amp_side");
+
+    m_autoChooser.addOption("Source Side Auton", "source_side");
+    m_autoChooser.addOption("1 Note Source Side Auton", "source_side_1_note");
+
+
+    m_autoChooser.setDefaultOption("1 Note Center Auton", "center_1_note"); 
+    m_autoChooser.setDefaultOption("Center Auton", "center_4_note"); 
+
     
      m_autoChooser.addOption("Test", "test");
 
     SmartDashboard.putData(m_autoChooser);
-
   }
 
   @Override

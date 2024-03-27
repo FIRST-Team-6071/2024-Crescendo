@@ -8,6 +8,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AlignToTarget;
 import frc.robot.commands.ShootNote;
@@ -44,7 +45,6 @@ public class RobotContainer {
     private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
 
     private UsbCamera camera = CameraServer.startAutomaticCapture();
-    private UsbCamera cameraChain = CameraServer.startAutomaticCapture();
 
 
     // The driver's controller
@@ -62,11 +62,11 @@ public class RobotContainer {
         NamedCommands.registerCommand("intakeNoteStop", m_PickupSubsystem.StopIntake());
         NamedCommands.registerCommand("shootNote", new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, false)
                         .andThen(
-                                new WaitCommand(1.2)
+                                new WaitCommand(0.2)
                                 .andThen(
                                         m_PickupSubsystem.PushOutOfIntake()
                                         .andThen(
-                                                new WaitCommand(0.8)
+                                                new WaitCommand(0.2)
                                                 .andThen(
                                                         m_ShooterSubsystem.StopMotors()
                                                         .andThen(
@@ -103,13 +103,30 @@ public class RobotContainer {
      * {@link JoystickButton}.
      */
     private void configureButtonBindings() {
+        SmartDashboard.putData("Compressor Enable/Disable", new RunCommand(
+                () -> m_PneumaticsSubsystem.ToggleCompressor(),
+                m_PneumaticsSubsystem
+                ));
+
+        m_driverController.y()
+                .onTrue(new RunCommand(
+                        () -> m_PneumaticsSubsystem.SetCompressor(true), 
+                        m_PneumaticsSubsystem)
+                );
+
+        m_driverController.b()
+                .onTrue(new RunCommand(
+                        () -> m_PneumaticsSubsystem.SetCompressor(false), 
+                        m_PneumaticsSubsystem)
+                );
+
         m_driverController.x()
                 .whileTrue(new RunCommand(
                         () -> m_robotDrive.setX(),
                         m_robotDrive));
 
 
-        m_driverController.b().whileTrue(new AlignToTarget(m_robotDrive, m_ShuffleboardSubsystem));
+        // m_driverController.b().whileTrue(new AlignToTarget(m_robotDrive, m_ShuffleboardSubsystem));
         // m_driverController.a().onTrue(new RunCommand(() -> m_ShooterSubsystem.RunMotors(), m_ShooterSubsystem)).onFalse(m_ShooterSubsystem.StopMotors());
         // m_driverController.y().onTrue(m_PickupSubsystem.PushOutOfIntake()). onFalse(m_PickupSubsystem.StopIntake());
         // m_driverController.b().onTrue(m_PickupSubsystem.SetTilt(Constants.Intake.TiltPositions.TILT_UP));

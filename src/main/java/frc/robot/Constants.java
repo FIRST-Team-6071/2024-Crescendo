@@ -125,7 +125,7 @@ public final class Constants {
     public static final IdleMode kDrivingMotorIdleMode = IdleMode.kBrake;
     public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
 
-    public static final int kDrivingMotorCurrentLimit = 50; // amps
+    public static final int kDrivingMotorCurrentLimit = 40; // amps
     public static final int kTurningMotorCurrentLimit = 20; // amps
   }
 
@@ -156,7 +156,7 @@ public final class Constants {
   public static final class Intake {
     public static final int IntakeWheelsId = 17;
     public static final int TiltMotorId = 9;
-    public static final int TiltSensorId = 5;
+    public static final int TiltSensorId = 0;
 
     public static final double TiltOffset = 0.784;
 
@@ -171,13 +171,13 @@ public final class Constants {
     }
 
     public static final class TiltPIDCutoffPositions {
-      public static final Double CutoffOut = 0.670;
+      public static final Double CutoffOut = 0.680;
       public static final Double CutoffIn = 0.1450;
     }
 
     public static final class TiltPositions {
       public static final Double FULLY_IN = 0.150;
-      public static final Double FULLY_OUT = 0.670;
+      public static final Double FULLY_OUT = 0.69;
       public static final Double TILT_UP = 0.340;
     }
 

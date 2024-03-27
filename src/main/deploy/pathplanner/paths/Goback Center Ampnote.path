@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.2578140930929753,
-        "y": 6.966339566481951
+        "x": 2.8335710517574895,
+        "y": 6.837791367890429
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4484468405556539,
-        "y": 5.839006607590681
+        "x": 2.0242037992201682,
+        "y": 5.71045840899916
       },
       "isLocked": false,
       "linkedName": "amp_note_pickup"
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": -132.5519621050743,
     "velocity": 0
   },
   "useDefaultConstraints": true

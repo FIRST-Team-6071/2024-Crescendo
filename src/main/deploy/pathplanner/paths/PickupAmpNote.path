@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2144551331356186,
-        "y": 6.850715673262332
+        "x": 1.7186065141361067,
+        "y": 5.525487974052871
       },
       "isLocked": false,
       "linkedName": "CenterSpeaker"
     },
     {
       "anchor": {
-        "x": 2.2578140930929753,
-        "y": 6.966339566481951
+        "x": 2.8335710517574895,
+        "y": 6.837791367890429
       },
       "prevControl": {
-        "x": 2.2000021464831665,
-        "y": 6.850715673262332
+        "x": 2.7757591051476806,
+        "y": 6.722167474670811
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": -116.56505117707793,
     "rotateFast": false
   },
   "reversed": false,
