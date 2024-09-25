@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AlignToTarget;
 import frc.robot.commands.ShootNote;
-import frc.robot.commands.Intake.TiltToPosition;
+import frc.robot.commands.Intake.StartIntake;
+import frc.robot.commands.Intake.StopIntake;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ShuffleboardSubsystem;
@@ -26,8 +27,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -49,34 +48,12 @@ public class RobotContainer {
 
     // The driver's controller
     CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort); 
-    CommandJoystick m_auxController = new CommandJoystick(1);
+    CommandXboxController m_auxController = new CommandXboxController(1);
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        NamedCommands.registerCommand("intakeTiltOut", new TiltToPosition(m_PickupSubsystem, Constants.Intake.TiltPositions.FULLY_OUT));
-        NamedCommands.registerCommand("intakeTiltIn", new TiltToPosition(m_PickupSubsystem, Constants.Intake.TiltPositions.FULLY_IN));
-        NamedCommands.registerCommand("intakeNoteIn", m_PickupSubsystem.PullInToIntake());
-        NamedCommands.registerCommand("intakeNoteOut", m_PickupSubsystem.PushOutOfIntake());        
-        NamedCommands.registerCommand("intakeNoteStop", m_PickupSubsystem.StopIntake());
-        NamedCommands.registerCommand("shootNote", new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, false)
-                        .andThen(
-                                new WaitCommand(0.2)
-                                .andThen(
-                                        m_PickupSubsystem.PushOutOfIntake()
-                                        .andThen(
-                                                new WaitCommand(0.2)
-                                                .andThen(
-                                                        m_ShooterSubsystem.StopMotors()
-                                                        .andThen(
-                                                                m_PickupSubsystem.StopIntake()
-                                                        )
-                                                )
-                                        )
-                                )
-                        ));
-
         // Configure the button bindings
         configureButtonBindings();
 
@@ -138,16 +115,10 @@ public class RobotContainer {
 
 
         // Controls for note intake
-        m_auxController.button(1) 
-                .onTrue(m_PickupSubsystem.AlternateTilt());
+        m_auxController.a()
+                .onTrue(new StartIntake(m_PickupSubsystem))
+                .onFalse(new StopIntake(m_PickupSubsystem));
 
-        m_auxController.button(2) 
-                .onTrue(m_PickupSubsystem.PullInToIntake())
-                .onFalse(m_PickupSubsystem.StopIntake());
-
-        m_auxController.button(3) 
-                .onTrue(m_PickupSubsystem.PushOutOfIntakeLightly())
-                .onFalse(m_PickupSubsystem.StopIntake());
 
         // // Controls for shooting
         // m_auxController.button(4) 
@@ -174,27 +145,6 @@ public class RobotContainer {
         //         );
 
 
-        m_auxController.button(5) 
-
-
-                .onTrue(
-                        new ShootNote(m_ShooterSubsystem, m_PickupSubsystem, false)
-                        .andThen(
-                                new WaitCommand(.2)
-                                .andThen(
-                                        m_PickupSubsystem.PushOutOfIntake()
-                                        .andThen(
-                                                new WaitCommand(0.2)
-                                                .andThen(
-                                                        m_ShooterSubsystem.StopMotors()
-                                                        .andThen(
-                                                                m_PickupSubsystem.StopIntake()
-                                                        )
-                                                )
-                                        )
-                                )
-                        )
-                );
     }
 
     /**

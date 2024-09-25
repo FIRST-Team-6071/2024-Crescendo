@@ -154,6 +154,17 @@ public final class Constants {
   }
 
   public static final class Intake {
+    public static final int StageOneMotorId = 0;
+    public static final int StageTwoMotorId = 0;
+    public static final int StageThreeLeftMotorId = 0;
+    public static final int StageThreeRightMotorId = 0;
+
+    public static final double StageOneSpeed = .15;
+    public static final double StageTwoSpeed = .30;
+
+    public static final double StopStageOneSpeed = 0;
+    public static final double StopStageTwoSpeed = 0;
+
     public static final int IntakeWheelsId = 17;
     public static final int TiltMotorId = 9;
     public static final int TiltSensorId = 0;
@@ -196,6 +207,6 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final int RightShooterMotor = 19;
     public static final int LeftShooterMotor = 18;
-    public static final double ShooterSpeed = 1;
+    public static final double ShooterSpeed = .4;
   }
 }

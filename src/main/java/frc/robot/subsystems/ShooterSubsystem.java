@@ -13,7 +13,7 @@ import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
   // Initialize motors
-  private final VictorSPX ShooterRightMotor = new VictorSPX(Constants.ShooterConstants.RightShooterMotor);
+  private final VictorSPX ShooterRightMotor = new VictorSPX(Constants.ShooterConstants.RightShooterMotor); 
   private final VictorSPX ShooterLeftMotor = new VictorSPX(Constants.ShooterConstants.LeftShooterMotor);
 
   private boolean ShouldRunMotors = false;

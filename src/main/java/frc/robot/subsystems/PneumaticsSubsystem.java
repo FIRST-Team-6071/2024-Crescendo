@@ -16,18 +16,18 @@ public class PneumaticsSubsystem extends SubsystemBase {
     // Solenoids initialization
     private Solenoid leftSolenoid = new Solenoid(
             25,
-            PneumaticsModuleType.REVPH, // Recycled REVPH type from old code idk what it is lol
+            PneumaticsModuleType.CTREPCM, // Recycled REVPH type from old code idk what it is lol
             Constants.PneumaticsSubsystem.LeftSolenoidID);
     private Solenoid RightSolenoid = new Solenoid(
             25,
-            PneumaticsModuleType.REVPH,
+            PneumaticsModuleType.CTREPCM,
             Constants.PneumaticsSubsystem.RightSolenoidID);
 
     private boolean isCompressing = false;
 
     Compressor phCompressor = new Compressor(
             25,
-            PneumaticsModuleType.REVPH);
+            PneumaticsModuleType.CTREPCM);
 
     // Rev Pneumatic controller initialization
     // private PneumaticsControlModule PnController = new PneumaticsControlModule(
@@ -44,7 +44,8 @@ public class PneumaticsSubsystem extends SubsystemBase {
             phCompressor.disable();
         } else {
             isCompressing = true;
-            phCompressor.enableAnalog(119, 120);
+            phCompressor.enableDigital();
+            // phCompressor.enableAnalog(119, 120);
         }
     }
 
